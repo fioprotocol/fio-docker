@@ -34,6 +34,7 @@ newgrp
 Start a node:
 
 ```
+cd testnet-v1history
 docker-compose up -d
 ```
 
