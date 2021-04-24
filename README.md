@@ -41,7 +41,7 @@ docker-compose up -d
 Upgrade an existing node:
 
 ```
-docker-compose build
+docker-compose --no-cache build
 docker-compose up -d
 ```
 
