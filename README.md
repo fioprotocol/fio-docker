@@ -1,6 +1,7 @@
 # fio-docker
 
-**Note: I will add mainnet configs once the snapshots are working**
+**Warning: These images always use the _latest_ published builds, which might include release-candidates, 
+check the FIO [Github](https://github.com/fioprotocol/fio/releases) to see what this will be downloading**
 
 These are simple docker-compose configs for bringing up a FIO node. There are two configs for each network
 (mainnet and testnet). The `v1history` will start a light-history node, it's highly recommended to use this

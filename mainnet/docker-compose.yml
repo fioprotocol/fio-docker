@@ -1,0 +1,28 @@
+---
+version: "3.3"
+services:
+  nodeos:
+    build: ./nodeos
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "20m"
+        max-file: "10"
+    networks: ["fio"]
+    stop_grace_period: 1m30s
+    stop_signal: SIGINT
+    ports:
+      - "8888:8888"
+      - "3856:3856"
+    volumes:
+      - type: volume
+        source: nodeos
+        target: /var/lib/fio
+    restart: unless-stopped
+
+networks:
+  fio:
+
+volumes:
+  nodeos:
+

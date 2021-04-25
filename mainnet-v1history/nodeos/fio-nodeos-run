@@ -1,0 +1,20 @@
+#!/bin/bash
+
+export HOME=/var/lib/fio
+
+EXTRA=
+PUB=$(curl -s https://address.works)
+[ -z "$PUB" ] && EXTRA="--p2p-server-address=$PUB:3856"
+
+if [ ! -f /var/lib/fio/data/blocks/blocks.log ]; then
+	pushd /var/tmp >/dev/null
+        echo "fetching history archive, this can take a long time"
+	wget -q https://snap.blockpane.com/mainnet-latest-history.txz
+        echo "extracting history archive"
+	tar -xS -I'pixz' -C /var/lib/fio -f mainnet-latest-history.txz || exit
+        rm -f mainnet-latest-history.txz
+	popd >/dev/null
+fi
+
+exec /usr/local/bin/fio-nodeos --data-dir /var/lib/fio/data --config-dir /etc/fio/nodeos --genesis-json /etc/fio/nodeos/genesis.json $EXTRA
+
