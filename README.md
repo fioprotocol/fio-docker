@@ -26,16 +26,17 @@ Each container will store the chain data in a volume, allowing for easy upgrades
 Install docker (ubuntu)
 
 ```
-sudo apt-get install -y docker.io python3 python3-pip
+sudo apt-get install -y docker.io python3 python3-pip git
 sudo pip3 install docker-compose
 sudo usermod -a -G docker $(whoami)
 newgrp
+git clone https://github.com/blockpane/fio-docker.git
 ```
 
 Start a node:
 
 ```
-cd testnet-v1history
+cd fio-docker/testnet-v1history
 docker-compose up -d
 ```
 
