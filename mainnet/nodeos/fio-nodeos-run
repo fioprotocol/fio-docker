@@ -18,7 +18,7 @@ fi
 
 if [ ! -f /var/lib/fio/data/state/shared_memory.bin ]; then
         echo "restoring state from snapshot"
-	/usr/local/bin/fio-nodeos --data-dir /var/lib/fio/data --config-dir /etc/fio/nodeos --snapshot $(ls -1 /var/lib/fio/data/snapshots/*bin|head -1) $EXTRA
+	exec /usr/local/bin/fio-nodeos --data-dir /var/lib/fio/data --config-dir /etc/fio/nodeos --snapshot $(ls -1 /var/lib/fio/data/snapshots/*bin|head -1) $EXTRA
 else
-	/usr/local/bin/fio-nodeos --data-dir /var/lib/fio/data --config-dir /etc/fio/nodeos --genesis-json /etc/fio/nodeos/genesis.json $EXTRA
+	exec /usr/local/bin/fio-nodeos --data-dir /var/lib/fio/data --config-dir /etc/fio/nodeos --genesis-json /etc/fio/nodeos/genesis.json $EXTRA
 fi
