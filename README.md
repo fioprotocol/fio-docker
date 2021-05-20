@@ -30,7 +30,12 @@ sudo apt-get install -y docker.io python3 python3-pip git
 sudo pip3 install docker-compose
 sudo usermod -a -G docker $(whoami)
 newgrp
-git clone https://github.com/blockpane/fio-docker.git
+```
+
+Clone the fio-docker repository:
+
+```
+git clone https://github.com/fioprotocol/fio-docker.git
 ```
 
 Start a node:
