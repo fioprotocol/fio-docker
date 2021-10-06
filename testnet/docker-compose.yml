@@ -18,7 +18,10 @@ services:
       - type: volume
         source: nodeos
         target: /var/lib/fio
-    restart: unless-stopped
+      - type: bind
+        source: ./nodeos/config.ini
+        target: /etc/fio/nodeos/config.ini
+    restart: unless-stoppedd
 
 networks:
   fio:
