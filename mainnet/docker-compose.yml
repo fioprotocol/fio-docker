@@ -21,7 +21,7 @@ services:
       - type: bind
         source: ./nodeos/config.ini
         target: /etc/fio/nodeos/config.ini
-    restart: unless-stoppedd
+    restart: unless-stopped
 
 networks:
   fio:
