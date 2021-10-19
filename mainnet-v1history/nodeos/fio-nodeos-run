@@ -8,11 +8,11 @@ PUB=$(curl -s https://address.works)
 
 if [ ! -f /var/lib/fio/data/blocks/blocks.log ]; then
 	pushd /var/tmp >/dev/null
-        echo "fetching history archive, this can take a long time"
-	wget -q https://snap.blockpane.com/mainnet-latest-history.txz
-        echo "extracting history archive"
+  echo "fetching history archive, this can take a long time"
+	aria2c -j 10 -x 10 --summary-interval=30 --enable-color=false https://snap.blockpane.com/mainnet-latest-history.txz
+  echo "extracting history archive"
 	tar -xS -I'pixz' -C /var/lib/fio -f mainnet-latest-history.txz || exit
-        rm -f mainnet-latest-history.txz
+  rm -f mainnet-latest-history.txz
 	popd >/dev/null
 fi
 
