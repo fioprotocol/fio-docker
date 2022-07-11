@@ -1,6 +1,6 @@
 FROM golang:latest AS health
 
-RUN go get github.com/blockpane/fio-docker/health
+RUN go install github.com/blockpane/fio-docker/health@latest
 
 FROM ubuntu:18.04
 
