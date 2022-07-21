@@ -21,10 +21,6 @@ env:
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
 
-defaults:
-  run:
-    working-directory: mainnet-v1history/nodeos
-
 jobs:
   build:
 
@@ -77,7 +73,7 @@ jobs:
         id: build-and-push
         uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
         with:
-          context: .
+          context: ./mainnet-v1history/nodeos
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }},ghcr.io/${{ github.repository }}:latest
           labels: ${{ steps.meta.outputs.labels }}
