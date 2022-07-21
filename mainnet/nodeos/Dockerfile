@@ -8,6 +8,7 @@ RUN apt-get update; apt-get -y dist-upgrade; apt-get -y install aria2 jq pixz cu
     aria2c -x 5 "https://bin.fioprotocol.io/mainnet/fioprotocol-3.3.x-latest-ubuntu-18.04-amd64.deb" && \
     apt-get install -y ./fioprotocol-3.3.x-latest-ubuntu-18.04-amd64.deb && rm -f ./fioprotocol-3.3.x-latest-ubuntu-18.04-amd64.deb && \
     rm -f /etc/fio/nodeos/config.ini  && rm -rf /var/lib/apt/lists/*
+COPY config.ini /etc/fio/nodeos/config.ini
 COPY fio-nodeos-run /usr/local/bin/fio-nodeos-run
 COPY --from=health /go/bin/health /usr/local/bin/fio-health
 RUN chmod 0755 /usr/local/bin/fio-nodeos-run
