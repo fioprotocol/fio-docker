@@ -15,10 +15,11 @@ RUN chmod 0755 /usr/local/bin/fio-nodeos-run
 
 EXPOSE 8888/tcp
 EXPOSE 3856/tcp
+VOLUME /var/lib/fio
+
 USER fio
 WORKDIR /var/lib/fio
 
 HEALTHCHECK --interval=10s --timeout=2s --start-period=10s CMD fio-health
-
 CMD ["/usr/local/bin/fio-nodeos-run"]
 
