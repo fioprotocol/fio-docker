@@ -7,11 +7,10 @@ PUB=$(curl -s https://address.works)
 [ -z "$PUB" ] && EXTRA="--p2p-server-address=$PUB:3856"
 
 if [ ! -f /var/lib/fio/data/blocks/blocks.log ]; then
-	pushd /var/tmp >/dev/null
   echo "fetching history archive, this can take a long time"
 	aria2c -j 10 -x 10 --summary-interval=30 --enable-color=false https://snap.blockpane.com/mainnet-latest-history.txz
   echo "extracting history archive"
-	tar -xS -I'pixz' -C /var/lib/fio -f mainnet-latest-history.txz || exit
+	tar -xvS -I'pixz' -f mainnet-latest-history.txz || exit
   rm -f mainnet-latest-history.txz
 	popd >/dev/null
 fi

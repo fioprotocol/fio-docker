@@ -7,17 +7,16 @@ PUB=$(curl -s https://address.works)
 [ -z "$PUB" ] && EXTRA="--p2p-server-address=${PUB}:3856"
 
 if [ ! -f /var/lib/fio/data/blocks/blocks.log ]; then
-	pushd /var/tmp >/dev/null
 	echo "fetching blocks.log, this can take a long time"
 	aria2c -j 10 -x 10 --summary-interval=30 --enable-color=false https://snap.blockpane.com/mainnet-latest-blocks.txz
   echo "extracting blocks"
-	tar -xS -I'pixz' -C /var/lib/fio -f mainnet-latest-blocks.txz
+	tar -xvS -I'pixz' -f mainnet-latest-blocks.txz
   rm -f testnet-latest-blocks.txz
 	popd >/dev/null
 fi
 
 if [ ! -f /var/lib/fio/data/state/shared_memory.bin ]; then
-        echo "restoring state from snapshot"
+  echo "restoring state from snapshot"
 	exec /usr/local/bin/fio-nodeos --data-dir /var/lib/fio/data --config-dir /etc/fio/nodeos --snapshot $(ls -1 /var/lib/fio/data/snapshots/*bin|head -1) $EXTRA
 else
 	exec /usr/local/bin/fio-nodeos --data-dir /var/lib/fio/data --config-dir /etc/fio/nodeos --genesis-json /etc/fio/nodeos/genesis.json $EXTRA
