@@ -1,6 +1,7 @@
 FROM golang:latest AS health
 
 RUN go install github.com/blockpane/fio-docker/health@latest
+RUN go install github.com/blockpane/restrict@latest
 
 FROM ubuntu:18.04
 
@@ -12,15 +13,13 @@ RUN apt-get update; apt-get -y dist-upgrade; apt-get -y install aria2 jq pixz cu
 COPY config.ini /etc/fio/nodeos/config.ini
 COPY fio-nodeos-run /usr/local/bin/fio-nodeos-run
 COPY --from=health /go/bin/health /usr/local/bin/fio-health
+COPY --from=health /go/bin/restrict /usr/local/bin/restrict
 RUN chmod 0755 /usr/local/bin/fio-nodeos-run
 
 EXPOSE 8888/tcp
 EXPOSE 3856/tcp
 VOLUME /var/lib/fio
-
-USER fio
 WORKDIR /var/lib/fio
 
 HEALTHCHECK --interval=10s --timeout=2s --start-period=1m CMD fio-health -c testnet
 CMD ["/usr/local/bin/fio-nodeos-run"]
-

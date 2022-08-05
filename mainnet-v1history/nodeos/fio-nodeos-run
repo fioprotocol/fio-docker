@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export HOME=/var/lib/fio
+chown -R fio:fio /var/lib/fio
 
 EXTRA=
 PUB=$(curl -s https://address.works)
@@ -8,12 +9,12 @@ PUB=$(curl -s https://address.works)
 
 if [ ! -f /var/lib/fio/data/blocks/blocks.log ]; then
   echo "fetching history archive, this can take a long time"
-	aria2c -j 10 -x 10 --summary-interval=30 --enable-color=false https://snap.blockpane.com/mainnet-latest-history.txz
+	runuser -u fio -- aria2c -j 3 -x 3 --summary-interval=30 --enable-color=false https://snap.blockpane.com/mainnet-latest-history.txz
   echo "extracting history archive"
-	tar -xvS -I'pixz' -f mainnet-latest-history.txz || exit
+	runuser -u fio -- tar -xvS -I'pixz' -f mainnet-latest-history.txz || exit
   rm -f mainnet-latest-history.txz
 	popd >/dev/null
 fi
 
-exec /usr/local/bin/fio-nodeos --data-dir /var/lib/fio/data --config-dir /etc/fio/nodeos --genesis-json /etc/fio/nodeos/genesis.json $EXTRA
+exec restrict -uid=$(id -u fio) -gid=$(id -g fio) /usr/local/bin/fio-nodeos --data-dir /var/lib/fio/data --config-dir /etc/fio/nodeos --genesis-json /etc/fio/nodeos/genesis.json $EXTRA
 
