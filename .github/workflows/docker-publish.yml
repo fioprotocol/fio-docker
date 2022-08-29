@@ -77,6 +77,14 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }},ghcr.io/${{ github.repository }}:latest
           labels: ${{ steps.meta.outputs.labels }}
+      - name: Build and push Docker testnet image
+        id: build-and-push-testnet
+        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
+        with:
+          context: ./testnet-v1history/nodeos
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }},ghcr.io/${{ github.repository }}:latest-testnet
+          labels: ${{ steps.meta.outputs.labels }}-testnet
 
       # Sign the resulting Docker image digest except on PRs.
       # This will only write to the public Rekor transparency log when the Docker
