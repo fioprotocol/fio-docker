@@ -35,7 +35,7 @@ newgrp
 Clone the fio-docker repository:
 
 ```
-git clone https://github.com/fioprotocol/fio-docker.git
+git clone https://github.com/blockpane/fio-docker.git
 ```
 
 Start a node:
