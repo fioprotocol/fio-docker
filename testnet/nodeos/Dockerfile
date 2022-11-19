@@ -6,7 +6,7 @@ RUN go install github.com/blockpane/restrict@latest
 FROM ubuntu:18.04
 
 RUN apt-get update; apt-get -y dist-upgrade; apt-get -y install aria2 jq pixz curl && \
-    aria2c -x 5 "https://bin.fioprotocol.io/mainnet/fioprotocol-3.4.x-latest-ubuntu-18.04-amd64.deb" && \
+    aria2c -x 5 "https://bin.fioprotocol.io/releases/fioprotocol-latest-ubuntu-18.04-amd64.deb" && \
     apt-get install -y ./fioprotocol-*.deb && rm -f ./fioprotocol-*.deb && \
     rm -f /etc/fio/nodeos/config.ini /etc/fio/nodeos/genesis.json && ln -s /etc/fio/nodeos/genesis-testnet.json /etc/fio/nodeos/genesis.json && \
     rm -rf /var/lib/apt/lists/*
